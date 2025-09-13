@@ -4,9 +4,15 @@ import { View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { getTotpcodes } from 'integrations/api';
 import { useEffect, useState } from 'react';
 
+import {useNavigation} from '@react-navigation/native';
 
+export default function Home() {
+    const navigation = useNavigation();
 
-export default function AuthScreen() {
+    function goTototpDetails() {
+      navigation.navigate("totpDetails");
+    }
+
     const [otp, setOtps] = useState([]);
 
     useEffect(() => {
@@ -28,16 +34,19 @@ export default function AuthScreen() {
         <View className="flex-row items-center justify-between bg-white rounded-xl px-4 py-3 mb-3 border border-neutral-200">
             <View className="flex-row items-center gap-3">
                 <Image source={{ uri: item?.icon }} className="w-8 h-8 rounded-full" />
-                <Text className="text-neutral-900 font-medium" numberOfLines={1}>
+                <TouchableOpacity onPress={()=> goTototpDetails()}>
+                <Text className="text-neutral-900 font-medium" numberOfLines={1} >
                     {item.label}
                 </Text>
+
+                </TouchableOpacity>
             </View>
 
             <View className="flex-row items-center gap-3">
                 <View className="w-8 h-8 rounded-full border border-neutral-300 items-center justify-center">
                     <Text className="text-neutral-900 font-semibold">25</Text>
                 </View>
-                <TouchableOpacity className="p-2 rounded-lg bg-neutral-100">
+                <TouchableOpacity className="p-2 rounded-lg bg-neutral-100" >
                     <Text className="text-neutral-500">📋</Text>
                 </TouchableOpacity>
             </View>
